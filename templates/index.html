@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Project Dude</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <div class="frame">
+
+        <div class="corner top-left"></div>
+        <div class="corner top-right"></div>
+        <div class="corner bottom-left"></div>
+        <div class="corner bottom-right"></div>
+
+        <div class="crosshair">
+            +
+        </div>
+
+        <img id="camera">
+
+        <div class="buttons">
+            ...
+        </div>
+
+        <div class="scene-info">
+            SCENE 01 | TAKE 01
+        </div>
+
+        <div class="battery">
+            <span class="battery-body">
+                <span class="battery-level"></span>
+            </span>
+            <span class="battery-percent">100%</span>
+        </div>
+
+    </div>
+
+    <div class="rec">
+        
+    </div>
+    <h2 class="rec-text">REC</h2>
+
+
+    <div class="frame">
+
+        <div class="corner top-left"></div>
+        <div class="corner top-right"></div>
+        <div class="corner bottom-left"></div>
+        <div class="corner bottom-right"></div>
+
+
+        <img id="camera">
+
+        <div class="buttons">
+
+            <button
+                id="actionButton"
+                onclick="toggleCamera()"
+            >
+                ACTION!
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="logo-container">
+
+        <img
+            class="logo"
+            src="{{ url_for('static', filename='Dude logo.png') }}"
+            alt="Project Dude Logo"
+        >
+
+    </div>
+
+
+    <script>
+
+        function toggleCamera() {
+
+            const button = document.getElementById("actionButton");
+            const camera = document.getElementById("camera");
+
+            if (button.innerText === "ACTION!") {
+
+                fetch("/start")
+                    .then(response => response.json())
+                    .then(data => {
+
+                        if (data.status === "started") {
+
+                            camera.src = "/video_feed";
+
+                            button.innerText = "CUT!";
+
+                        }
+
+                    });
+
+            } else {
+
+                fetch("/stop")
+                    .then(response => response.json())
+                    .then(data => {
+
+                        if (data.status === "stopped") {
+
+                            camera.src = "";
+
+                            button.innerText = "ACTION!";
+
+                        }
+
+                    });
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
