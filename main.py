@@ -26,8 +26,16 @@ camera_lock = threading.Lock()
 
 BaseOptions = mp.tasks.BaseOptions
 
-pygame.mixer.init()
-pygame.mixer.music.load("oorum blood.mp3")
+try:
+    pygame.mixer.init()
+except pygame.error as e:
+    print("Audio unavailable on server:", e)
+    
+try:
+    pygame.mixer.init()
+    pygame.mixer.music.load("oorum blood.mp3")
+except pygame.error as e:
+    print("Audio unavailable:", e)
 
 HandLandmarker = mp.tasks.vision.HandLandmarker
 HandLandmarkerOptions = mp.tasks.vision.HandLandmarkerOptions
