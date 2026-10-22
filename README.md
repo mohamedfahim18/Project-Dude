@@ -35,7 +35,7 @@ Project DUDE is a movie-inspired, hand-gesture-controlled music player that turn
 
 ```bash
 git clone https://github.com/mohamedfahim18/Project-Dude.git
-cd Project-DUDE
+cd Project-Dude
 ```
 
 ### 2. Install dependencies
